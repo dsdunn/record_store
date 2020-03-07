@@ -1,10 +1,29 @@
 version: "3"
-services: 
+services:
+  db:
+    build: ./db
+    container_name: db
+    ports:
+      - "3306:3306"
+    restart: unless-stopped
+    volumes:
+      - ./db/data:/usr/local/var/mysql
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8090:8080"
   api:
     build: ./api
     container_name: api
     ports: 
       - "8080:8080"
+    environment: 
+      DATABASE_HOST: host.docker.internal
+      DATABASE_USER: record_buyer
+      DATABASE_PASSWORD: password
+    depends_on:
+      - "db"
     restart: unless-stopped
     volumes:
       - ./api:/api
