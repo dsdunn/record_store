@@ -1,0 +1,20 @@
+version: "3"
+services: 
+  api:
+    build: ./api
+    container_name: api
+    ports: 
+      - "8080:8080"
+    restart: unless-stopped
+    volumes:
+      - ./api:/api
+  client:
+    build: ./client
+    container_name: client
+    ports: 
+      - "3000:3000"
+    depends_on: 
+      - "api"
+    restart: unless-stopped
+    volumes:
+      - ./client:/client
