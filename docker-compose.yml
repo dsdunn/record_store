@@ -7,7 +7,7 @@ services:
       - "3306:3306"
     restart: unless-stopped
     volumes:
-      - ./db/data:/usr/local/var/mysql
+      - ./db/data:/var/lib/mysql
   adminer:
     image: adminer
     restart: always
