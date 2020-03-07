@@ -9,7 +9,7 @@ app.use(cors());
 
 
 app.get('*', (req,res) => {
-  res.send('you\'ve hit the api @ port ' + (process.env.PORT || 8080))
+  res.json({"body": "you\'ve hit the api @ port 8080"});
 });
 
 let port = process.env.PORT || 8080;

@@ -1,24 +1,27 @@
-import React from 'react';
+import React,  { Component } from 'react';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import { Products } from './Products';
+import { Cart } from './Cart';
+
+import { Fetch } from './fetch';
+
+class App extends Component {
+  
+  componentDidMount() {
+    let response = Fetch.getCart();
+    console.log(response);
+  }
+
+  render() {  
+    return (
+      <div className="App">
+        <h1>Dude's Record Store</h1>
+        <Products />
+        <Cart />
+      </div>
+    );
+  }
 }
 
 export default App;
