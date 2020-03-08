@@ -1,8 +1,8 @@
 CREATE TABLE if NOT EXISTS record_cart(
   cart_id int primary key auto_increment,
   user_id int not null default 1,
-  total_price int,
-  total_quantity int
+  total_price int default 0,
+  total_quantity int default 0
 );
 
 CREATE TABLE if NOT EXISTS record(
@@ -14,7 +14,7 @@ CREATE TABLE if NOT EXISTS record(
 
 CREATE TABLE if NOT EXISTS cart_item(
   cart_item_id int primary key auto_increment,
-  cart_id int,
+  cart_id int default 1,
   quantity int not null default 1,
   record_id int
 );
