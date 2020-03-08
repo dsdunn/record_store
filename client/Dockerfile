@@ -6,7 +6,7 @@ COPY package*.json /client/
 
 RUN npm install
 
-COPY . /client/
+COPY ./src /client/
 
 EXPOSE 3000
 
