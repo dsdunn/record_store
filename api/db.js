@@ -36,25 +36,42 @@ const queryDatabase = (sql) => {
 
 
 // sql constructors:
-const getCartSQL = 
-  "SELECT * FROM record_cart INNER JOIN cart_item ON record_cart.cart_id = cart_item.cart_id INNER JOIN record ON record.record_id = cart_item.record_id";
+const getCartSQL = (user_id) =>  `SELECT * FROM record_cart INNER JOIN cart_item ON record_cart.cart_id = cart_item.cart_id INNER JOIN record ON record.record_id = cart_item.record_id WHERE user_id = ${user_id}`;
+
+const putCartSQL = (qtyToAdd, priceToAdd, user_id) => {
+  return `UPDATE record_cart SET total_items = total_items + ${qtyToAdd}, total_price = total_price + ${priceToAdd} WHERE user_id = ${user_id}`;
+}
+
+const postCartItemSQL = (record_id) => `INSERT INTO cart_item(record_id, cart_id) VALUES (${record_id}, 1)`;
 
 const getRecordsSQL = "SELECT * FROM record";
 
-const queryCart = () => {
-  return queryDatabase(getCartSQL);
-}
+
+
+
+const queryGetCart = (user_id) => {
+  return queryDatabase(getCartSQL(user_id));
+};
+
+const queryPutCart = (qtyToAdd, priceToAdd, user_id) => {
+  return queryDatabase(putCartSQL(qtyToAdd, priceToAdd, user_id))
+};
 
 const queryRecords = () => {
-  let data = queryDatabase(getRecordsSQL);
-  return data;
-}
+  return queryDatabase(getRecordsSQL);
+};
+
+const queryPostCartItem = (record_id) => {
+  return queryDatabase(postCartItemSQL(record_id));
+};
 
 connect();
 
 module.exports = {
-  queryCart,
-  queryRecords
+  queryGetCart,
+  queryPutCart,
+  queryRecords,
+  queryPostCartItem
 }
 
 

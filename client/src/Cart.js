@@ -3,8 +3,8 @@ import React from 'react';
 export const Cart = ({ addToCart, cart= [] }) => {
   let cartItemsComponents = () => cart.map(item => {
     return (
-      <div className="cartItem" key="item.cart_item_id">
-        <p>item: {item.record_name} quantity: {item.quantity}</p>
+      <div className="cartItem" key={ item.cart_item_id }>
+        <p>item: { item.record_name } quantity: { item.quantity }</p>
       </div>
       )
   })

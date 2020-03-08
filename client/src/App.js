@@ -10,13 +10,14 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
+      user_id: 1,
       products: [],
       cart: []
     }
   }
 
   async componentDidMount() {
-    let cartResponse = await Fetch.getCart();
+    let cartResponse = await Fetch.getCart(this.state.user_id);
     let productResponse = await Fetch.getProducts();
     
     this.setState({
@@ -25,14 +26,13 @@ class App extends Component {
     })
   }
 
-  isProductInCart(record_id) {
+  findCartItem = (record_id) => {
     return this.state.cart.find(item => {
       return item.record_id === record_id;
     })
   }
 
-  addToCart = async (record_id, changeQty) => {
-    let response;
+  addToCart = async (record_id, changeQty, priceToAdd) => {
     let cartItem = this.findCartItem(record_id)
     let newQuantity = cartItem && cartItem.quantity + changeQty;
 
@@ -40,11 +40,14 @@ class App extends Component {
       // Fetch.deleteCartItem
       // delete cartItemFromState
     } else if (newQuantity && cartItem) {
-      // Fetch.putCartItem -> returns new cart
+      // Fetch.putCartItem(record_id, user_id) -> returns new cart
       // setState(cart)
-    } else if (newQuantity && !cartItem) {
-      // Fetch.postCartItem(record_id, record_name) -> returns new cart
-      // setState(cart)
+    } else if (changeQty > 0 && !cartItem) {
+      let cart = await Fetch.postCartItem(record_id, 1, priceToAdd);
+      console.log('cart: ', cart);
+      this.setState({
+        cart
+      });
     }
   }
 
