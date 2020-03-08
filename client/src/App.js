@@ -35,10 +35,13 @@ class App extends Component {
   addToCart = async (record_id, changeQty, priceToAdd) => {
     let cartItem = this.findCartItem(record_id)
     let newQuantity = cartItem && cartItem.quantity + changeQty;
+    console.log(newQuantity, priceToAdd);
 
     if (newQuantity <= 0) {
-      // Fetch.deleteCartItem
-      // delete cartItemFromState
+      let cart = Fetch.deleteCartItem(record_id, priceToAdd, changeQty);
+      this.setState({
+        cart
+      })
     } else if (newQuantity && cartItem) {
       let cart = await Fetch.putCartItem(record_id, priceToAdd, changeQty);
       this.setState({

@@ -25,7 +25,10 @@ export class Fetch {
   }
 
   static putCartItem = (record_id, priceToAdd, itemQtyChange, user_id = 1) => {
-    console.log('feth: ', itemQtyChange);
-    return this.fetchData(`cart_item?record_id=${record_id}&user_id=${user_id}&price_to_add=${priceToAdd}&item_quantity_change=${itemQtyChange}`, 'PUT')
+    return this.fetchData(`cart_item?record_id=${record_id}&user_id=${user_id}&price_to_add=${priceToAdd}&item_quantity_change=${itemQtyChange}`, 'PUT');
+  }
+
+  static deleteCartItem = (record_id, priceToAdd, itemQtyChange, user_id = 1) => {
+    return this.fetchData(`cart_item?record_id=${record_id}&user_id=${user_id}&price_to_add=${priceToAdd}&item_quantity_change=${itemQtyChange}`, 'DELETE');
   }
 }
