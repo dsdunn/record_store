@@ -4,16 +4,27 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
-const { cartService } = require('./services/cartService');
-
 app.use(bodyParser.json());
 app.use(cors());
 
+const { cartService } = require('./services/cartService');
+const { productService } = require('./services/productService');
+
+const baseUrl = '/api/v1/'
+
+
+app.get(`${baseUrl}cart`, async (req, res) => {
+  let result = await cartService.getCart();
+  res.status(200).json(result);
+})
+
+app.get(`${baseUrl}products`, async (req, res) => {
+  let result = await productService.getRecords()
+  res.status(200).json(result);
+})
 
 app.get('*', async (req,res) => {
-  let result = await cartService.getCart();
-  console.log(result);
-  res.status(200).json(result);
+  res.send('Welcome to Dude\'s Records! The api endpoine it at http://localhost:8080/api/v1');
 });
 
 let port = process.env.PORT || 8080;

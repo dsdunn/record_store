@@ -7,10 +7,15 @@ import { Cart } from './Cart';
 import { Fetch } from './fetch';
 
 class App extends Component {
-  
-  componentDidMount() {
-    let response = Fetch.getCart();
-    console.log(response);
+
+  async componentDidMount() {
+    let cartResponse = await Fetch.getCart();
+    let productResponse = await Fetch.getProducts();
+    
+    this.setState({
+      cart: cartResponse,
+      products: productResponse
+    })
   }
 
   render() {  

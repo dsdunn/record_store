@@ -8,11 +8,15 @@ export class Fetch {
       },
       body: body && JSON.stringify(body)
     });
-    
+
     return await response.json();
   }
 
   static getCart = () => {
     return this.fetchData('cart');
+  }
+
+  static getProducts = () => {
+    return this.fetchData('products');
   }
 }

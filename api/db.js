@@ -39,15 +39,22 @@ const queryDatabase = (sql) => {
 const getCartSQL = 
   "SELECT * FROM record_cart INNER JOIN cart_item ON record_cart.cart_id = cart_item.cart_id INNER JOIN record ON record.record_id = cart_item.record_id";
 
+const getRecordsSQL = "SELECT * FROM record";
+
 const queryCart = () => {
-  let data = queryDatabase(getCartSQL);
+  return queryDatabase(getCartSQL);
+}
+
+const queryRecords = () => {
+  let data = queryDatabase(getRecordsSQL);
   return data;
 }
 
 connect();
 
 module.exports = {
-  queryCart
+  queryCart,
+  queryRecords
 }
 
 

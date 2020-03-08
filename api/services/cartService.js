@@ -1,10 +1,5 @@
-const db = require('../db');
-
-const { queryCart } = db;
-
-// const getCart = () => {
-//   return queryCart();
-// }
+const sql_db = require('../db');
+const { queryCart } = sql_db;
 
 const cartService = class {
   static getCart = () => {
