@@ -5,6 +5,7 @@
 To run app, clone this repo, cd into it, and run `bash start.sh`.
 
 Or, paste this in the terminal and hit `enter`: 
+
 ```git clone https://github.com/dsdunn/record_store.git && cd record_store && bash start.sh```
 
 The app will run at localhost:3000.
