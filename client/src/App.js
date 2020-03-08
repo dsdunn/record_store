@@ -60,6 +60,7 @@ class App extends Component {
     return (
       <div className="App">
         <h1>Dude's Record Store</h1>
+        <h5>Click on an Item to Add to Cart</h5>
         <Products className="products-section" addToCart={ this.addToCart } products= { this.state.products } />
         <Cart className="cart" addToCart={ this.addToCart } cart={ this.state.cart } />
       </div>
