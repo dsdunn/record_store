@@ -4,7 +4,7 @@ export const Cart = ({ addToCart, cart= [] }) => {
   let cartItemsComponents = () => cart.map(item => {
     return (
       <div className="cart-item" key={ item.cart_item_id }>
-        <p>item: { item.record_name } quantity: { item.quantity }</p>
+        <p className="item-info"><span>Item: { item.record_name }</span> <span>Quantity: { item.quantity }</span></p>
         <div className="cart-item-control">
           <span 
             className="button add"
@@ -32,6 +32,7 @@ export const Cart = ({ addToCart, cart= [] }) => {
 
   return ( 
     <section className="cart-container">
+      <h3>Cart</h3>
       { cartItemsComponents() }
       <div>
         <p>Total Price: { cartSummary.totalPrice }</p>

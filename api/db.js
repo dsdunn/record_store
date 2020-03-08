@@ -9,12 +9,6 @@ const pool = mysql.createPool({
 const connect = () => {
   pool.getConnection(function(err, connection) {
     try {
-      if (err) {
-        setTimeout(() => {
-          connect();
-        }, 4500)
-      }
-
       connection.query('USE record_cart', function (error, results, fields) {
         console.log('connected as id ' + connection.threadId);
         connection.release();
@@ -23,20 +17,27 @@ const connect = () => {
       });
     } catch (err) {
       console.log('connection failed: ' + err);
-      console.log('retrying')
+      setTimeout(() => {
+        connect();
+      }, 4500)
     }
   });
 }
 
 const queryDatabase = (sql) => {
-  return new Promise((resolve, reject) => {
-    pool.query(sql, (err, result) => {
-      if (err) {
-        reject(err);
-      }
-      resolve(result);
+  try{
+    return new Promise((resolve, reject) => {
+      pool.query(sql, (err, result) => {
+        if (err) {
+          connect(); //in case db closed connection due to idle timeout
+          reject(err);
+        }
+        resolve(result);
+      })
     })
-  })
+  } catch(err) {
+    console.log('query error: ', + err);
+  }
 } 
 
 // sql constructors:
