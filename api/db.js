@@ -47,6 +47,7 @@ const postCartItemSQL = (record_id) => `INSERT INTO cart_item(record_id, cart_id
 
 const putCartItemSQL = (record_id, qtyChange) => `UPDATE cart_item SET quantity = quantity + ${qtyChange} WHERE record_id = ${record_id}`;
 
+const deleteCartItemSQL = (record_id) => `DELETE FROM cart_item WHERE record_id = ${record_id}`;
 
 
 // methods
@@ -70,6 +71,10 @@ const queryPutCartItem = (record_id, qtyChange) => {
   return queryDatabase(putCartItemSQL(record_id, qtyChange));
 }
 
+const queryDeleteCartItem = (record_id) => {
+  return queryDatabase(deleteCartItemSQL(record_id));
+}
+
 connect();
 
 module.exports = {
@@ -77,7 +82,8 @@ module.exports = {
   queryPutCart,
   queryRecords,
   queryPostCartItem,
-  queryPutCartItem
+  queryPutCartItem,
+  queryDeleteCartItem
 }
 
 

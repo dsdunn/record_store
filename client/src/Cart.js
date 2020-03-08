@@ -10,7 +10,7 @@ export const Cart = ({ addToCart, cart= [] }) => {
             Add One</span>
           <span onClick={ () => addToCart(item.record_id, -1, -1 * item.record_price)}>
             Remove One</span>
-          <span onClick={ () => addToCart(item.record_id, item.quantity, -1 * item.quantity * item.record_price)}>
+          <span onClick={ () => addToCart(item.record_id, -1 * item.quantity, -1 * item.quantity * item.record_price)}>
             Remove all From Cart</span>
         </div>
       </div>
