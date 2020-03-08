@@ -1,31 +1,36 @@
 const mysql = require('mysql');
-const connection = mysql.createConnection({
+const pool = mysql.createPool({
+  connectionLimit: 10,
   host     : process.env.DATABASE_HOST,
   user     : process.env.DATABASE_USER,
   password : process.env.DATABASE_PASSWORD
 });
 
 const connect = () => {
-  try {
-    connection.connect(function(err) {
+  pool.getConnection(function(err, connection) {
+    try {
       if (err) {
-        console.error('error connecting: ' + err.stack);
         setTimeout(() => {
           connect();
-        }, 2500)
+        }, 4500)
       }
-      console.log('connected as id ' + connection.threadId);
 
-      queryDatabase('USE record_cart'); //selecting database
-    });
-  } catch(err) {
-    console.log(err);
-  }
+      connection.query('USE record_cart', function (error, results, fields) {
+        console.log('connected as id ' + connection.threadId);
+        connection.release();
+
+        if (error) throw error;
+      });
+    } catch (err) {
+      console.log('connection failed: ' + err);
+      console.log('retrying')
+    }
+  });
 }
 
 const queryDatabase = (sql) => {
   return new Promise((resolve, reject) => {
-    connection.query(sql, (err, result) => {
+    pool.query(sql, (err, result) => {
       if (err) {
         reject(err);
       }

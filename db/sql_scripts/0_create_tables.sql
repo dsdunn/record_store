@@ -19,8 +19,6 @@ CREATE TABLE if NOT EXISTS cart_item(
   record_id int
 );
 
-ALTER TABLE cart_item 
-   ADD FOREIGN KEY (record_id) REFERENCES record (record_id);
+ALTER TABLE cart_item ADD FOREIGN KEY (record_id) REFERENCES record(record_id);
 
-ALTER TABLE cart_item 
-   ADD FOREIGN KEY (cart_id) REFERENCES record_cart (cart_id);
+ALTER TABLE cart_item ADD FOREIGN KEY (cart_id) REFERENCES record_cart(cart_id);
