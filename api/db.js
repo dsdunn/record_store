@@ -34,8 +34,9 @@ const queryDatabase = (sql) => {
   })
 } 
 
-
 // sql constructors:
+const getRecordsSQL = "SELECT * FROM record";
+
 const getCartSQL = (user_id) =>  `SELECT * FROM record_cart INNER JOIN cart_item ON record_cart.cart_id = cart_item.cart_id INNER JOIN record ON record.record_id = cart_item.record_id WHERE user_id = ${user_id}`;
 
 const putCartSQL = (qtyToAdd, priceToAdd, user_id) => {
@@ -44,11 +45,11 @@ const putCartSQL = (qtyToAdd, priceToAdd, user_id) => {
 
 const postCartItemSQL = (record_id) => `INSERT INTO cart_item(record_id, cart_id) VALUES (${record_id}, 1)`;
 
-const getRecordsSQL = "SELECT * FROM record";
+const putCartItemSQL = (record_id, qtyChange) => `UPDATE cart_item SET quantity = quantity + ${qtyChange} WHERE record_id = ${record_id}`;
 
 
 
-
+// methods
 const queryGetCart = (user_id) => {
   return queryDatabase(getCartSQL(user_id));
 };
@@ -65,13 +66,18 @@ const queryPostCartItem = (record_id) => {
   return queryDatabase(postCartItemSQL(record_id));
 };
 
+const queryPutCartItem = (record_id, qtyChange) => {
+  return queryDatabase(putCartItemSQL(record_id, qtyChange));
+}
+
 connect();
 
 module.exports = {
   queryGetCart,
   queryPutCart,
   queryRecords,
-  queryPostCartItem
+  queryPostCartItem,
+  queryPutCartItem
 }
 
 

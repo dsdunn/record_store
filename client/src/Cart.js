@@ -21,7 +21,7 @@ export const Cart = ({ addToCart, cart= [] }) => {
       { cartItemsComponents() }
       <div>
         <p>Total Price: { cartSummary.totalPrice }</p>
-        <p>Total Qty: { cartSummary.totalItems }</p>
+        <p>Total Items: { cartSummary.totalItems }</p>
       </div>
     </section>
     );

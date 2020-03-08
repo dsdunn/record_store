@@ -36,15 +36,16 @@ class App extends Component {
     let cartItem = this.findCartItem(record_id)
     let newQuantity = cartItem && cartItem.quantity + changeQty;
 
-    if (newQuantity === 0) {
+    if (newQuantity <= 0) {
       // Fetch.deleteCartItem
       // delete cartItemFromState
     } else if (newQuantity && cartItem) {
-      // Fetch.putCartItem(record_id, user_id) -> returns new cart
-      // setState(cart)
+      let cart = await Fetch.putCartItem(record_id, priceToAdd, changeQty);
+      this.setState({
+        cart
+      })
     } else if (changeQty > 0 && !cartItem) {
-      let cart = await Fetch.postCartItem(record_id, 1, priceToAdd);
-      console.log('cart: ', cart);
+      let cart = await Fetch.postCartItem(record_id, priceToAdd);
       this.setState({
         cart
       });

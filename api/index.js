@@ -30,10 +30,25 @@ app.get('*', async (req,res) => {
 
 app.post(`${baseUrl}cart_item`, async (req, res) => {
   let { record_id, user_id, price_to_add } = req.query;
-  let cartResult;
+  let cartResult = [];
+
   try {
     await cartService.postCartItem(record_id);
     await cartService.putCart(1, price_to_add, user_id);
+    cartResult = await cartService.getCart(user_id);
+  } catch (err) {
+    if (err) throw err;
+  }
+  res.status(201).json(cartResult);
+})
+
+app.put(`${baseUrl}cart_item`, async (req, res) => {
+  let { record_id, user_id, price_to_add, item_quantity_change } = req.query;
+  let cartResult = [];
+
+  try {
+    await cartService.putCartItem(record_id, item_quantity_change);
+    await cartService.putCart(item_quantity_change, price_to_add, user_id);
     cartResult = await cartService.getCart(user_id);
   } catch (err) {
     if (err) throw err;
