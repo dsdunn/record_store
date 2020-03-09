@@ -3,6 +3,7 @@ import './App.css';
 
 import { Products } from './Products';
 import { Cart } from './Cart';
+import { EmptyCartModal } from './EmptyCartModal';
 
 import { Fetch } from './fetch';
 
@@ -12,13 +13,20 @@ class App extends Component {
     this.state = {
       user_id: 1,
       products: [],
-      cart: []
+      cart: [],
+      isModalOpen: false
     }
   }
 
   async componentDidMount() {
     let cartResponse = await Fetch.getCart(this.state.user_id);
     let productResponse = await Fetch.getProducts();
+
+    if (cartResponse && !cartResponse.length) {
+      this.setState({
+      isModalOpen: true
+      })
+    };
     
     this.setState({
       cart: cartResponse,
@@ -35,11 +43,9 @@ class App extends Component {
   addToCart = async (record_id, changeQty, priceToAdd) => {
     let cartItem = this.findCartItem(record_id)
     let newQuantity = cartItem && cartItem.quantity + changeQty;
-    console.log(record_id, changeQty, priceToAdd, newQuantity);
 
     if (newQuantity <= 0) {
       let cart = await Fetch.deleteCartItem(record_id, priceToAdd, changeQty);
-      console.log(cart);
       this.setState({
         cart
       })
@@ -56,6 +62,12 @@ class App extends Component {
     }
   }
 
+  closeModal = () => {
+    this.setState({
+      isModalOpen: false
+    })
+  }
+
   render() {  
     return (
       <div className="App">
@@ -63,6 +75,7 @@ class App extends Component {
         <h5>Click on an Item to Add to Cart</h5>
         <Products className="products-section" addToCart={ this.addToCart } products= { this.state.products } />
         <Cart className="cart" addToCart={ this.addToCart } cart={ this.state.cart } />
+        <EmptyCartModal isOpen={ this.state.isModalOpen } closeModal={ this.closeModal } />
       </div>
     );
   }

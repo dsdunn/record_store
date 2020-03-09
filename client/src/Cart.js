@@ -34,7 +34,6 @@ export const Cart = ({ addToCart, cart= [] }) => {
     <section className="cart-container">
       <h3>Cart</h3>
       { cartItemsComponents() }
-      { (cartSummary.totalItems === 0) && <h4>Your Cart is Empty.</h4>}
       <div>
         <p>Total Price: { cartSummary.totalPrice }</p>
         <p>Total Items: { cartSummary.totalItems }</p>

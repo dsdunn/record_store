@@ -1,4 +1,5 @@
 .App {
+  position: relative;
   text-align: center;
 }
 
@@ -54,19 +55,23 @@
   background: red;
 }
 
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.empty-cart-modal-container {
+  position: absolute;
+  top: -10vh;
+  height: 110vh;
+  width: 100%;
+  background: rgba(100, 100, 100, .85);
 }
 
-.App-link {
-  color: #61dafb;
+.empty-cart-modal {
+  padding: 1.5em;
+  margin: 7em auto;
+  background: white;
+  width: fit-content;
+}
+
+button {
+  padding: .5em;
+  font-size: 1em;
 }
 
