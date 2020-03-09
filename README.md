@@ -2,7 +2,7 @@
 
 ### Simple shopping cart build in docker with MySql, Express, and React.
 
-Running this app locally requires docker/docker-compose. See: [https://formulae.brew.sh/formula/docker-compose] for mac.
+Running this app locally requires docker/docker-compose. See: [https://formulae.brew.sh/formula/docker-compose] [https://docs.docker.com/docker-for-mac/install/].
 
 To run app, clone this repo, cd into it, and run `bash start.sh`.
 
