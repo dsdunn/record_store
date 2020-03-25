@@ -8,15 +8,6 @@ import { EmptyCartModal } from './EmptyCartModal';
 import { Fetch } from './fetch';
 
 const App = () => {
-  // constructor() {
-  //   super();
-  //   state = {
-  //     user_id: 1,
-  //     products: [],
-  //     cart: [],
-  //     isModalOpen: false
-  //   }
-  // }
   const [ user_id, setUserId ] = useState(1);
   const [ products, setProducts ] = useState([]);
   const [ cart, setCart ] = useState([]);
@@ -27,8 +18,6 @@ const App = () => {
       let cartResponse = await Fetch.getCart(user_id);
       let productResponse = await Fetch.getProducts();
 
-      console.log(cartResponse, productResponse);
-
       if (cartResponse && !cartResponse.length) {
         setIsModalOpen(true);
       };
@@ -36,26 +25,10 @@ const App = () => {
       setCart(cartResponse);
       setProducts(productResponse);
     }
-    // console.log(getCart())
     getCart();
 
-  });
+  }, [ user_id ]);
 
-  // async componentDidMount() {
-  //   let cartResponse = await Fetch.getCart(state.user_id);
-  //   let productResponse = await Fetch.getProducts();
-
-  //   if (cartResponse && !cartResponse.length) {
-  //     setState({
-  //     isModalOpen: true
-  //     })
-  //   };
-    
-  //   setState({
-  //     cart: cartResponse,
-  //     products: productResponse
-  //   })
-  // }
 
   const findCartItem = (record_id) => {
     return cart.find(item => {
