@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const Cart = ({ addToCart, cart= [] }) => {
+export const Cart = ({ addToCart, cart = [] }) => {
   let cartItemsComponents = () => cart.map(item => {
     return (
       <div className="cart-item" key={ item.cart_item_id }>

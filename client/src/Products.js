@@ -1,6 +1,7 @@
 import React from 'react';
 
-export const Products = ({ addToCart, products }) => {
+export const Products = ({ addToCart, products = [] }) => {
+  console.log(products);
   let productComponents = products.map(product => {
     return (
       <div 
